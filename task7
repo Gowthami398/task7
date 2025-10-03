@@ -1,0 +1,30 @@
+import os
+from PIL import Image
+
+# Input and output folders
+input_folder = "images"       # Folder with original images
+output_folder = "resized"     # Folder to save resized images
+
+# Resize dimensions
+new_size = (300, 300)  # width, height
+
+# Create output folder if not exists
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+# Loop through all files in input folder
+for filename in os.listdir(input_folder):
+    if filename.endswith((".jpg", ".jpeg", ".png", ".bmp", ".gif")):
+        img_path = os.path.join(input_folder, filename)
+        img = Image.open(img_path)
+
+        # Resize image
+        resized_img = img.resize(new_size)
+
+        # Save with same filename in output folder
+        save_path = os.path.join(output_folder, filename)
+        resized_img.save(save_path)
+
+        print(f"Resized and saved: {save_path}")
+
+print("✅ All images resized successfully!")
